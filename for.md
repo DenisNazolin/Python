@@ -36,3 +36,34 @@ else:
         else:
             print("Неправильный IP-адрес")
 ```
+
+### Задание 3: 
+
+```
+
+trunk_template = [
+    "switchport trunk encapsulation dot1q",
+    "switchport mode trunk",
+    "switchport trunk allowed vlan",
+]
+
+trunk = {
+    "0/1": ["add", "10", "20"],
+    "0/2": ["only", "11", "30"],
+    "0/4": ["del", "17"]
+}
+
+for intf, vlans in trunk.items():
+    print("interface FastEthernet " + intf)
+    for command in trunk_template:
+        if command.endswith("allowed vlan"):
+            if vlans[0] == "add":
+                print(f" {command} add {','.join(vlans[1:])}")
+            elif vlans[0] == "del":
+                print(f" {command} remove {','.join(vlans[1:])}")
+            elif vlans[0] == "only":
+                print(f" {command} {','.join(vlans[1:])}")
+        else:
+            print(f" {command}")
+
+```
